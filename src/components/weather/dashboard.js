@@ -10,6 +10,7 @@ import {
     CardText,
     Button
 } from 'reactstrap';
+import Tile from './tile';
 
 class Dashboard extends Component {
     state = {}
@@ -48,101 +49,11 @@ class Dashboard extends Component {
 
                             <CardBody>
                                 <Row>
-                                    <Col>
-                                        <Card body outline color="primary">
-                                            <CardBody >
-                                                <Row >
-                                                    <CardText>
-                                                        monday
-                                               </CardText>
-                                                </Row>
-                                                <Row>
-                                                    <CardImg src="https://openweathermap.org/img/w/01d.png">
-                                                        {/* <img src="https://openweathermap.org/img/w/01d.png"></img> */}
-                                                    </CardImg>
-                                                </Row>
-                                                <Row>
-                                                    <strong>29&deg;</strong>/19&deg;
-                                           </Row>
-                                            </CardBody>
-                                        </Card>
-                                    </Col>
-                                    <Col>
-                                        <Card body outline color="primary">
-                                            <CardBody >
-                                                <Row >
-                                                    <CardText>
-                                                        monday
-                                               </CardText>
-                                                </Row>
-                                                <Row>
-                                                    <CardImg src="https://openweathermap.org/img/w/01d.png">
-                                                        {/* <img src="https://openweathermap.org/img/w/01d.png"></img> */}
-                                                    </CardImg>
-                                                </Row>
-                                                <Row>
-                                                    <strong>29&deg;</strong>/19&deg;
-                                           </Row>
-                                            </CardBody>
-                                        </Card>
-                                    </Col>
-                                    <Col>
-                                        <Card body outline color="primary">
-                                            <CardBody >
-                                                <Row >
-                                                    <CardText>
-                                                        monday
-                                               </CardText>
-                                                </Row>
-                                                <Row>
-                                                    <CardImg src="https://openweathermap.org/img/w/01d.png">
-                                                        {/* <img src="https://openweathermap.org/img/w/01d.png"></img> */}
-                                                    </CardImg>
-                                                </Row>
-                                                <Row>
-                                                    <strong>29&deg;</strong>/19&deg;
-                                           </Row>
-                                            </CardBody>
-                                        </Card>
-                                    </Col>
-                                    <Col>
-                                        <Card body outline color="primary">
-                                            <CardBody >
-                                                <Row >
-                                                    <CardText>
-                                                        monday
-                                               </CardText>
-                                                </Row>
-                                                <Row>
-                                                    <CardImg src="https://openweathermap.org/img/w/01d.png">
-                                                        {/* <img src="https://openweathermap.org/img/w/01d.png"></img> */}
-                                                    </CardImg>
-                                                </Row>
-                                                <Row>
-                                                    <strong>29&deg;</strong>/19&deg;
-                                           </Row>
-                                            </CardBody>
-                                        </Card>
-                                    </Col>
-                                    <Col>
-                                        <Card body outline color="primary">
-                                            <CardBody >
-                                                <Row >
-                                                    <CardText>
-                                                        monday
-                                               </CardText>
-                                                </Row>
-                                                <Row>
-                                                    <CardImg src="https://openweathermap.org/img/w/01d.png">
-                                                        {/* <img src="https://openweathermap.org/img/w/01d.png"></img> */}
-                                                    </CardImg>
-                                                </Row>
-                                                <Row>
-                                                    <strong>29&deg;</strong>/19&deg;
-                                           </Row>
-                                            </CardBody>
-                                        </Card>
-                                    </Col>
+                                    <Tile/>
+                                    <Tile/>
+                                    <Tile/>
+                                    <Tile/>
+                                    <Tile/>                                   
                                 </Row>
                             </CardBody>
                             {/* </CardText> */}

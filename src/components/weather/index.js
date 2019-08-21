@@ -27,12 +27,19 @@ class Weather extends Component {
         const { status, data } = this.props;
         console.log('status', status);
         console.log('data', data);
-
-         const loading = status == null ? <h2>Loading...</h2> : <ForecastTiles forecasts={data.list}/>//<h2>{status}</h2>//<DetailedInfo data={data}/>
+        // const cityData={city:data.city.name};
+        // console.log('city', data.city.name);
+         const loading = status == null ? <h2>Loading...</h2> : (
+         <ForecastTiles forecasts={data.list}  cityData={{
+             city:data.city.name,
+             country:data.city.country,
+             population:data.city.population
+            }}/>
+         )//<h2>{status}</h2>//<DetailedInfo data={data}/>
         
         return (
             <>
-            <Dashboard/>
+            {/* <Dashboard/> */}
             
             { loading }
             

@@ -1,7 +1,33 @@
 import React, { Component } from "react";
 import DetailedInfo from "./detailedInfo";
+import Dashboard from "./dashboard";
+
+
+
 
 export default class ForecastTiles extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      dataWeath:[]
+     }
+  }
+
+  componentDidMount() { 
+    const { forecasts, cityData } = this.props;
+    const tiles = Object.values(this._groupByDays(forecasts));
+       
+    const forecastTiles = tiles.length > 5 ? tiles.slice(0, 5) : tiles;
+    let dataWeath2 = [];
+    const weathArr = () =>forecastTiles.map(element=>{      
+      dataWeath2.push(this._getInfo2(element))
+    });
+    this.setState(()=>{
+      this.dataWeath=dataWeath2.slice()      
+    })
+
+  }
+
 
   // Filters the data by date and returns an Object containing a list of 5-day forecast.
   _groupByDays = data => {
@@ -61,8 +87,8 @@ export default class ForecastTiles extends Component {
     );
   };
 
-  avgArr = (arr)=>{    
-    return Math.round(arr.reduce((curr, next) => curr + next) / arr.length);   
+  avgArr = (arr) => {
+    return Math.round(arr.reduce((curr, next) => curr + next) / arr.length);
   };
 
   _getInfo2 = (data, min = [], max = [], humidity = [], windSpeed = [], pressure = [], dataTime = []) => {
@@ -72,12 +98,12 @@ export default class ForecastTiles extends Component {
       humidity.push(item.main.humidity);
       windSpeed.push(item.wind.speed);
       pressure.push(item.main.pressure);
-//time.push(this._getHour(item.dt * 1000));
-dataTime.push({
-  hour: this._getHour(item.dt * 1000),
-  icon: item.weather[0].icon,
-  description: item.weather[0].description
-});
+     
+      dataTime.push({
+        hour: this._getHour(item.dt * 1000),
+        icon: item.weather[0].icon,
+        description: item.weather[0].description
+      });
     });
 
     const minMax = {
@@ -85,33 +111,23 @@ dataTime.push({
       max: Math.round(Math.max(...max)),
     };
 
-    // Gets the day's average humdity
+    const avgHumdity = this.avgArr(humidity);
+    const avgWindSpeed = this.avgArr(windSpeed);
+    const avgPressure = this.avgArr(pressure);
 
-
-    
-    const avgHumdity = this.avgArr(humidity);//Math.round(humidity.reduce((curr, next) => curr + next) / humidity.length);
-    const avgWindSpeed = this.avgArr(windSpeed);//Math.round(windSpeed.reduce((curr, next) => curr + next) / windSpeed.length);
-    const avgPressure = this.avgArr(pressure);//Math.round(pressure.reduce((curr, next) => curr + next) / pressure.length);
-//const hum = data;
+    const weatherData = dataTime.length > 7 ? dataTime[4] : dataTime[0];
     return (
       {
-        max:minMax.max,
-        min:minMax.min,
-        humidity:avgHumdity,
+        max: minMax.max,
+        min: minMax.min,
+        humidity: avgHumdity,
         windSpeed: avgWindSpeed,
         avgPressure,
-        day:this._getDayInfo(data),
-        time:dataTime.length > 7 ?dataTime[4]:dataTime[0]
-        //hum: hum
-      }
-      // <div className="weather-info">
-      //   <div className="min-max">
-      //     <strong>{`${minMax.max}°C`}</strong> / {`${minMax.min}°C`}
-      //   </div>
-      //   <div className="more-info">
-      //     {`Avg. Humidity: ${avgHumdity}%`}
-      //   </div>
-      // </div>
+        day: this._getDayInfo(data),
+        description: weatherData.description,
+        hour: weatherData.hour,
+        icon: weatherData.icon        
+      }     
     );
   };
 
@@ -126,80 +142,81 @@ dataTime.push({
 
   render() {
 
-    const { forecasts } = this.props;
+    const { forecasts, cityData } = this.props;
     const tiles = Object.values(this._groupByDays(forecasts));
     console.log("tiles", tiles);
     // Edge case:
     // When the webservice returns data for 6 calendar days during evenings as a result of offset,
     // this ensures that we are showing only 5-days of forecast.
     const forecastTiles = tiles.length > 5 ? tiles.slice(0, 5) : tiles;
-    console.log("forecastTiles",forecastTiles);
-    let min =[];
-    let max =[];
-    let humidity =[];
-    forecastTiles.map((item=>{
-      console.log("getInfo", this._getDayInfo(item, min, max, humidity))
-    }));
-    console.log("humidity",  min, max, humidity);
-    let el = {
-      icon: null,
-      day: null
-    }
+    console.log("forecastTiles", forecastTiles);
+    console.log("cityData", cityData);
+    // let min = [];
+    // let max = [];
+    // let humidity = [];
+    // forecastTiles.map((item => {
+    //   console.log("getInfo", this._getDayInfo(item, min, max, humidity))
+    // }));
+    // console.log("humidity", min, max, humidity);
+    // let el = {
+    //   icon: null,
+    //   day: null
+    // }
 
-    let iconArray = [];
-    forecastTiles.forEach((item, idx) => (
-      idx === 0 ? (
-        console.log("0", item),
-        //  el = {
-        //   icon:item[0].weather[0].icon,
-        //   day:this. _getDayInfo(item)
-        // },
-        console.log("el", this._getDayInfo2(item[0])),
-        // el.icon =  item[0].weather[0].icon,
-        // el.day = this. _getDayInfo2(item[0]),
+    //let iconArray = [];
+    // forecastTiles.forEach((item, idx) => (
+    //   idx === 0 ? (
+    //     console.log("0", item),
+        
+    //     console.log("el", this._getDayInfo2(item[0])),       
+    //     iconArray.push(         
+    //       {
+    //         ...el,
+    //         icon: item[0].weather[0].icon,
+    //         day: this._getDayInfo2(item[0])
+    //       }
+    //     )
+    //   ) : (
 
-        //  newel = {
-        //   ...el,
-        //   icon: item[0].weather[0].icon,
-        //   day : this._getDayInfo2(item)
-        // },
-        iconArray.push(
-          //item[0].weather[0].icon
-          {
-            ...el,
-            icon: item[0].weather[0].icon,
-            day: this._getDayInfo2(item[0])
-          }
-        )
-      ) : (
+    //       item.forEach((elem, id) => (
+    //         id !== 5 ? null : (
+    //           //iconArray.push(elem.weather[0].icon),
+    //           console.log("el2", id, elem, elem.weather[0].icon)
+    //           , console.log("el222", this._getDayInfo2(elem)),
+    //           iconArray.push(
+    //             //item[0].weather[0].icon
+    //             {
+    //               ...el,
+    //               icon: elem.weather[0].icon,
+    //               day: this._getDayInfo2(elem)
+    //             }
+    //           )
+    //         )
+    //       ))
+    //     )
 
-          item.forEach((elem, id) => (
-            id !== 5 ? null : (
-              //iconArray.push(elem.weather[0].icon),
-              console.log("el2", id, elem, elem.weather[0].icon)
-              , console.log("el222", this._getDayInfo2(elem)),
-              iconArray.push(
-                //item[0].weather[0].icon
-                {
-                  ...el,
-                  icon: elem.weather[0].icon,
-                  day: this._getDayInfo2(elem)
-                }
-              )
-            )
-          ))
-        )
-
-    ));
-    console.log(iconArray);
+    // ));
+    // console.log(iconArray);
 
     forecastTiles.forEach(element => {
       console.log("this._getInfo2(element)", this._getInfo2(element))
-    })
+    });
+
+     let dataWeath = [];
+    const weathArr = () =>forecastTiles.map(element=>{      
+      //dataWeath.push(this._getInfo2(element))s
+      console.log("this._getInfo3(element)", this._getInfo2(element))
+     
+    });
+    weathArr();
+     //console.log("dataWeath", dataWeath);
 
     
+
+
     return (
       <div className="forecast-tiles">
+        <Dashboard forecast={dataWeath} cityData={cityData}/>
         {forecastTiles.map((item, i) => (
           <div
             className={`forecast-tile tile-${i}`}

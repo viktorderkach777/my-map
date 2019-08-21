@@ -15,6 +15,10 @@ import Tile from './tile';
 class Dashboard extends Component {
     state = {}
     render() {
+        const { forecasts, cityData } = this.props;
+   
+    console.log("Dashboardforecasts", forecasts);
+    console.log("DashboardcityData", cityData);
         return (
             <Container>
 

@@ -10,10 +10,18 @@ import {
     CardText,
     Button
 } from 'reactstrap';
+//import { max } from 'gl-matrix/src/gl-matrix/vec2';
+
 
 class Tile extends Component {
-    state = {}
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {  }
+    // }
+    //state = {}
     render() {
+        console.log("----tile.props----", this.props);
+       const {max,min,humidity,windSpeed, day, avgPressure, description,icon}=this.props;
         return (
             <Col>
                 <Card body outline color="primary">

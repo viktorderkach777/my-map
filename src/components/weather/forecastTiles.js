@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DetailedInfo from "./detailedInfo";
 import Dashboard from "./dashboard";
+import Tile from "./tile";
 
 
 
@@ -203,9 +204,12 @@ export default class ForecastTiles extends Component {
     });
 
      let dataWeath = [];
-    const weathArr = () =>forecastTiles.map(element=>{      
-      //dataWeath.push(this._getInfo2(element))s
-      console.log("this._getInfo3(element)", this._getInfo2(element))
+    const weathArr = () =>forecastTiles.map(element=>{ 
+      let a =   this._getInfo2(element)
+      console.log("a", a);
+      //<Tile/>
+      //dataWeath.push(this._getInfo2(element))
+      //console.log("this._getInfo3(element)", this._getInfo2(element))
      
     });
     weathArr();

@@ -14,20 +14,20 @@ export default class ForecastTiles extends Component {
      }
   }
 
-  componentDidMount() { 
-    const { forecasts, cityData } = this.props;
-    const tiles = Object.values(this._groupByDays(forecasts));
+  // componentDidMount() { 
+  //   const { forecasts, cityData } = this.props;
+  //   const tiles = Object.values(this._groupByDays(forecasts));
        
-    const forecastTiles = tiles.length > 5 ? tiles.slice(0, 5) : tiles;
-    let dataWeath2 = [];
-    const weathArr = () =>forecastTiles.map(element=>{      
-      dataWeath2.push(this._getInfo2(element))
-    });
-    this.setState(()=>{
-      this.dataWeath=dataWeath2.slice()      
-    })
+  //   const forecastTiles = tiles.length > 5 ? tiles.slice(0, 5) : tiles;
+  //   let dataWeath2 = [];
+  //   const weathArr = () =>forecastTiles.map(element=>{      
+  //     dataWeath2.push(this._getInfo2(element))
+  //   });
+  //   this.setState(()=>{
+  //     this.dataWeath=dataWeath2.slice()      
+  //   })
 
-  }
+  // }
 
 
   // Filters the data by date and returns an Object containing a list of 5-day forecast.
@@ -221,6 +221,23 @@ export default class ForecastTiles extends Component {
     return (
       <div className="forecast-tiles">
         <Dashboard forecast={dataWeath} cityData={cityData}/>
+        {
+          forecastTiles.map(element=>(
+            //let a =   this._getInfo2(element)
+            <div key={element.day}>
+              {
+                 //(this._getInfo2(element)).hour
+                 //a=this._getInfo2(element)
+                 <Tile el = {this._getInfo2(element)}/>
+              }
+            </div>
+            //console.log("a", a);
+            //<Tile/>
+            //dataWeath.push(this._getInfo2(element))
+            //console.log("this._getInfo3(element)", this._getInfo2(element))
+           
+          ))
+        }
         {forecastTiles.map((item, i) => (
           <div
             className={`forecast-tile tile-${i}`}

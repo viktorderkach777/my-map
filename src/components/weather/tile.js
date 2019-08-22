@@ -14,11 +14,19 @@ import {
 
 
 class Tile extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {  }
-    // }
+    constructor(props) {
+        super(props);
+        //this.state = {  }
+    }
     //state = {}
+    // componentWillReceiveProps(nextProps) {
+    //     console.log("----tile.this.props----", this.props);
+    //     console.log("----nextProps----", nextProps);
+    //     // this.setState({
+    //     //   likesIncreasing: nextProps.likeCount > this.props.likeCount
+    //     // });
+    //   }
+
     render() {
         console.log("----tile.props----", this.props);
        const {max,min,humidity,windSpeed, day, avgPressure, description,icon}=this.props;
